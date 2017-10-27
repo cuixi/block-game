@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<title>painter</title>
+</head>
+<body>
+	
+	<div class="container">
+		<ul class="square">
+			<li class="item" id="item1" cid='1'></li>
+			<li class="item" id="item2" cid='2'></li>
+			<li class="item" id="item3" cid='3'></li>
+			<li class="item" id="item4" cid='4'></li>
+			<li class="item" id="item5" cid='5'></li>
+			<li class="item" id="item6" cid='6'></li>
+			<li class="item" id="item7" cid='7'></li>
+			<li class="item" id="item8" cid='8'></li>
+			<li class="item" id="item9" cid='9'></li>
+		</ul>
+	</div>
+
+
+	<script>
+
+		window.onload = function(){
+			var websocket = createSocket();
+			connectWebSocket(websocket);
+			selectSquare(websocket);
+		}
+
+		
+		/**
+		 * 创建websocket
+		 */
+		function createSocket(){
+			var domain = '192.168.1.182:3001';
+			var server = 'ws://' + domain;
+			var websocket = new WebSocket(server);
+			return websocket;
+		}
+		
+		/**
+		 * 监听websocket
+		 */
+		function connectWebSocket(websocket){
+			websocket.addEventListener('open', function(event){
+				console.log('websocket is open');
+			});
+
+			websocket.addEventListener('message', function(event){
+				var data = JSON.parse(event.data);
+				if(data.type == 2){
+					setSquareStyle(data.cid);
+				}
+				console.log('get message: ' + event.data);
+			});
+
+			websocket.addEventListener('close', function(event){
+				console.log('websocket is close');
+			});
+		}
+
+		/**
+		 * 选择游戏方块方块
+		 */
+		function selectSquare(websocket){
+			var square = document.querySelector('.square');
+			
+			square.addEventListener('click', function(e){
+				var nodeName = e.target.nodeName.toLocaleLowerCase();
+				if(nodeName == 'li'){
+					var cid = e.target.getAttribute('cid');
+					var sendData = {
+						type: 2,
+						cid: cid
+					}
+
+					setSquareStyle(cid);
+					websocket.send(JSON.stringify(sendData));
+				}
+			});
+		}
+
+		// 切换方块样式
+		function setSquareStyle(cid){
+			var items = document.querySelectorAll('.item');
+			var cItem = document.querySelector('#item' + cid);
+			for(var i=0; i<items.length; i++){
+				items[i].classList.remove('current');
+			}
+			cItem.classList.add('current');
+		}
+
+
+
+
+	</script>
+
+	
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		ul, li {
+			list-style: none;
+		}
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 100px;
+		}
+		.square {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			width: 200px;
+			height: 200px;
+		}
+		.square li {
+			flex: none;
+			width: 60px;
+			height: 60px;
+			background: #ddd;
+		}
+		.square li.current {
+			background: #c00;
+		}
+	</style>
+
+</body>
+</html>
