@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>你画我猜</title>
+	<title>方块游戏</title>
 	<style>
 		* {
 			padding: 0;
@@ -46,7 +46,7 @@
 
 		window.onload = function(){
 			var domain = '192.168.1.182:3001';
-			var src = 'http://qr.liantu.com/api.php?text=http://' + domain + '/guess/1';
+			var src = 'http://qr.liantu.com/api.php?text=http://' + domain + '/vistor/1';
 			var server = 'ws://' + domain;
 
 			var btn = document.querySelector('.create');
@@ -70,7 +70,7 @@
 				var data = JSON.parse(event.data);
 				console.log(event.data);
 				if(data.type == 1 && data.status == 1){
-					window.location.href = 'http://' + domain + '/painter/1';
+					window.location.href = 'http://' + domain + '/master/1';
 				}
 				console.log('接收socket信息： ' + event.data);
 			});

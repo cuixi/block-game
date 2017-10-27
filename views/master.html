@@ -4,6 +4,37 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 	<title>painter</title>
+	<style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	ul, li {
+		list-style: none;
+	}
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 100px;
+	}
+	.square {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		width: 200px;
+		height: 200px;
+	}
+	.square li {
+		flex: none;
+		width: 60px;
+		height: 60px;
+		background: #ddd;
+	}
+	.square li.current {
+		background: #c00;
+	}
+</style>
 </head>
 <body>
 	
@@ -97,39 +128,6 @@
 
 
 	</script>
-
-	
-	<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
-		ul, li {
-			list-style: none;
-		}
-		.container {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			margin-top: 100px;
-		}
-		.square {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: space-between;
-			width: 200px;
-			height: 200px;
-		}
-		.square li {
-			flex: none;
-			width: 60px;
-			height: 60px;
-			background: #ddd;
-		}
-		.square li.current {
-			background: #c00;
-		}
-	</style>
 
 </body>
 </html>

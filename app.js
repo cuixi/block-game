@@ -26,12 +26,12 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
-app.get('/guess/:id', function(req, res){
-	res.render('guess');
+app.get('/master/:id', function(req, res){
+	res.render('master');
 });
 
-app.get('/painter/:id', function(req, res){
-	res.render('painter');
+app.get('/vistor/:id', function(req, res){
+	res.render('vistor');
 });
 
 
